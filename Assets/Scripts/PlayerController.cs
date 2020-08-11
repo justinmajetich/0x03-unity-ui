@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private float xForce = 0;
     private float zForce = 0;
+    private int score = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -23,5 +24,15 @@ public class PlayerController : MonoBehaviour
 
         // Apply force to player rigidbody
         rb.AddForce(xForce, 0, zForce); 
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Pickup")
+        {
+            score++;
+            Debug.Log($"Score: {score}");
+            Destroy(other.gameObject);
+        }
     }
 }
