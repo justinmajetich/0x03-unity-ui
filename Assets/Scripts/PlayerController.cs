@@ -3,6 +3,7 @@
 public class PlayerController : MonoBehaviour
 {
     public float speed = 20f;
+    public int health = 5;
     private Rigidbody rb;
     private float xForce = 0;
     private float zForce = 0;
@@ -28,11 +29,19 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        // On collision with coin
         if (other.tag == "Pickup")
         {
             score++;
             Debug.Log($"Score: {score}");
             Destroy(other.gameObject);
+        }
+        
+        // On collision with trap
+        if (other.tag == "Trap")
+        {
+            health--;
+            Debug.Log($"Health: {health}");
         }
     }
 }
