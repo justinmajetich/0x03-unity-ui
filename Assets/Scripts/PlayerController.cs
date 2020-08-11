@@ -29,19 +29,26 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // On collision with coin
-        if (other.tag == "Pickup")
+        switch (other.tag)
         {
-            score++;
-            Debug.Log($"Score: {score}");
-            Destroy(other.gameObject);
-        }
-        
-        // On collision with trap
-        if (other.tag == "Trap")
-        {
-            health--;
-            Debug.Log($"Health: {health}");
+            case "Pickup":  // On collision with coin
+                score++;
+                Debug.Log($"Score: {score}");
+                Destroy(other.gameObject);
+                break;
+
+            case "Trap":  // On collision with trap
+                health--;
+                Debug.Log($"Health: {health}");
+                break;
+
+            case "Goal":  // On collision with goal
+                Debug.Log("You win!");
+                break;
+
+            default:
+                Debug.Log("Unknown trigger.");
+                break;
         }
     }
 }
