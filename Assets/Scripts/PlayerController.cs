@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 20f;
     public int health = 5;
     public Text scoreText;
+    public Text healthText;
 
     private Rigidbody rb;
     private float xForce = 0;
@@ -42,7 +43,12 @@ public class PlayerController : MonoBehaviour
     
     void SetScoreText()
     {
-        scoreText.text = $"Score: {score.ToString()}";
+        scoreText.text = $"Score: {score}";
+    }
+
+    void SetHealthText()
+    {
+        healthText.text = $"Health: {health}";
     }
 
     void OnTriggerEnter(Collider other)
@@ -57,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
             case "Trap":  // On collision with trap
                 health--;
-                Debug.Log($"Health: {health}");
+                SetHealthText();
                 break;
 
             case "Goal":  // On collision with goal
