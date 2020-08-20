@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         if (health == 0)
         {
-            Debug.Log("Game Over!");
+            SetLoseLabel();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
@@ -63,7 +63,10 @@ public class PlayerController : MonoBehaviour
 
     void SetLoseLabel()
     {
-
+        winLoseText.color = Color.white;
+        winLoseLabel.color = Color.red;
+        winLoseText.text = "Game Over!";
+        winLoseLabel.gameObject.SetActive(true);
     }
 
     void OnTriggerEnter(Collider other)
