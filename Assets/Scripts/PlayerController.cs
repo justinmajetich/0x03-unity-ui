@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public int health = 5;
     public Text scoreText;
     public Text healthText;
+    public Image winLoseLabel;
+    public Text winLoseText;
 
     private Rigidbody rb;
     private float xForce = 0;
@@ -51,6 +53,19 @@ public class PlayerController : MonoBehaviour
         healthText.text = $"Health: {health}";
     }
 
+    void SetWinLabel()
+    {
+        winLoseText.color = Color.black;
+        winLoseLabel.color = Color.green;
+        winLoseText.text = "You Win!";
+        winLoseLabel.gameObject.SetActive(true);
+    }
+
+    void SetLoseLabel()
+    {
+
+    }
+
     void OnTriggerEnter(Collider other)
     {
         switch (other.tag)
@@ -67,7 +82,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case "Goal":  // On collision with goal
-                Debug.Log("You win!");
+                SetWinLabel();
                 break;
 
             default:

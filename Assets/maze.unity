@@ -3011,6 +3011,8 @@ MonoBehaviour:
   health: 5
   scoreText: {fileID: 2069972330}
   healthText: {fileID: 110868481}
+  winLoseLabel: {fileID: 388430943}
+  winLoseText: {fileID: 455843348}
 --- !u!114 &716646408
 MonoBehaviour:
   m_ObjectHideFlags: 0
