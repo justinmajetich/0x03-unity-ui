@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -39,10 +40,43 @@ public class PlayerController : MonoBehaviour
         if (health == 0)
         {
             SetLoseLabel();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            StartCoroutine(LoadScene(3));
         }
     }
-    
+
+    void OnTriggerEnter(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "Pickup":  // On collision with coin
+                score++;
+                Destroy(other.gameObject);
+                SetScoreText();
+                break;
+
+            case "Trap":  // On collision with trap
+                health--;
+                SetHealthText();
+                break;
+
+            case "Goal":  // On collision with goal
+                SetWinLabel();
+                StartCoroutine(LoadScene(3));
+                break;
+
+            default:
+                Debug.Log("Unknown trigger.");
+                break;
+        }
+    }
+
+    IEnumerator LoadScene(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     void SetScoreText()
     {
         scoreText.text = $"Score: {score}";
@@ -67,30 +101,5 @@ public class PlayerController : MonoBehaviour
         winLoseLabel.color = Color.red;
         winLoseText.text = "Game Over!";
         winLoseLabel.gameObject.SetActive(true);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        switch (other.tag)
-        {
-            case "Pickup":  // On collision with coin
-                score++;
-                Destroy(other.gameObject);
-                SetScoreText();
-                break;
-
-            case "Trap":  // On collision with trap
-                health--;
-                SetHealthText();
-                break;
-
-            case "Goal":  // On collision with goal
-                SetWinLabel();
-                break;
-
-            default:
-                Debug.Log("Unknown trigger.");
-                break;
-        }
     }
 }
