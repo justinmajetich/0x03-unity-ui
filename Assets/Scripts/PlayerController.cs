@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 20f;
     public int health = 5;
+    public Text scoreText;
+
     private Rigidbody rb;
     private float xForce = 0;
     private float zForce = 0;
@@ -36,6 +39,11 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
+    
+    void SetScoreText()
+    {
+        scoreText.text = $"Score: {score.ToString()}";
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -43,8 +51,8 @@ public class PlayerController : MonoBehaviour
         {
             case "Pickup":  // On collision with coin
                 score++;
-                Debug.Log($"Score: {score}");
                 Destroy(other.gameObject);
+                SetScoreText();
                 break;
 
             case "Trap":  // On collision with trap
